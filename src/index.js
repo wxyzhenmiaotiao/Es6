@@ -302,4 +302,35 @@ ReactDOM.render(<App />, document.getElementById('root'));
 //   .then(res => console.log(res))
 
 
+//小程序
+  //子传父 
+  //子
+  //<button bind:tap="onTap">点我</button> 添加一个时间
+  //子 js 要写在methods里面
+  // methods: {
+  //   onTap(evt) {
+  //     console.log(evt,1111)
+  //     this.triggerEvent('onClick',{
+  //       name: '笑话',
+  //       age: 25
+  //     })
+  //   },
+  // }
+
+  //父 
+  //<images data="{{result}}" bind:onClick="onClick" /> 调用它添加事件
+      //父 js
+      // onClick(options) {
+      //   console.log(Object.prototype.toString.call(this.data.result));
+      //   console.log(this.data.result)
+      //   console.log(options.detail)
+      //   const { result } = this.data
+      //   this.setData({
+      //     result : {
+      //       imageUrl: result.imageUrl,
+      //       name: '小花'
+      //     }
+      //   })
+      // },
+
 
