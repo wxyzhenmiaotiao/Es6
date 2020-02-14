@@ -97,7 +97,7 @@ ReactDOM.render(<App />, document.getElementById('root'));
 // .catch(function(error) {
 //   console.log(error);
 // });
-                    //这两个道理一样
+//这两个道理一样
 // // 写法二
 // const promise = new Promise(function(resolve, reject) {
 //   reject(new Error('test'));
@@ -151,7 +151,7 @@ ReactDOM.render(<App />, document.getElementById('root'));
 
 //组件名 images 组件名不能使用关键字
 //父 使用组件 要加引号和两个大括号。
-  //<images data="{{result}}" />  
+//<images data="{{result}}" />  
 //result 这个值在父的js文件里
 
 //组件的js文件
@@ -170,26 +170,136 @@ ReactDOM.render(<App />, document.getElementById('root'));
 
 
 // 路径传参
-  //在wxml设置点击事件 使用下面的代码进行传参
-  //wx.navigateTo({
-  //   url: '/pages/login/login?name=wxy&age=20',
-  // })
+//在wxml设置点击事件 使用下面的代码进行传参
+//wx.navigateTo({
+//   url: '/pages/login/login?name=wxy&age=20',
+// })
 //跳转到后获取值
 // onLoad: function (options) {
 //   console.log(options)
 // }
 
 //跳转页面
-  //两种方式
-  //标签类型
+//两种方式
+//标签类型
 // <navigator open-type="switchTab" url="/pages/detail/datail">
 //   <images />
 // </navigator>
-  //事件类型 
-  // wx.navigateTo({
-  //   url: '/pages/login/login',
-  // })
+//事件类型 
+// wx.navigateTo({
+//   url: '/pages/login/login',
+// })
 
+
+
+
+
+
+
+//第二天
+
+
+//Promise的基本用法
+// const p = Promise.all([p1, p2, p3]);
+// p的状态由p1、p2、p3决定，分成两种情况 
+// 当这三个都是undefined的时候p就是undefined
+// 三个中只要有一个被reject p的状态就会被reject
+
+
+// const p1 = new Promise((resolve, reject) => {
+//   resolve('hello')
+// })
+//   .then(result => result)
+//   .catch(e => e)
+
+//   const p2 = new Promise((resolve, reject) => {
+//     throw new Error('报错了')
+//   })
+//     .then(result => result)
+//     .catch(e => e)
+
+// Promise.all([p1,p2])
+//   .then(result => console.log(result))
+//   .catch(e => console.log(e))
+
+//p2有自己的catch方法，该方法返回的是一个新的 Promise 实例，
+//p2指向的实际上是这个实例。该实例执行完catch方法后，也会变成resolved，
+//导致Promise.all()方法参数里面的两个实例都会resolved，
+//因此会调用then方法指定的回调函数，而不会调用catch方法指定的回调函数
+
+
+//下面这个相反p2没有自己的catch 就走了all的catch
+// const p1 = new Promise((resolve, reject) => {
+//   resolve('hello');
+// })
+// .then(result => result);
+
+// const p2 = new Promise((resolve, reject) => {
+//   throw new Error('报错了');
+// })
+// .then(result => result);
+
+// Promise.all([p1, p2])
+// .then(result => console.log(result))
+// .catch(e => console.log(e));
+
+
+
+//promise.race()
+//Promise.race()方法的参数与Promise.all()方法一样 但是作用是相反的
+// 三个第一个改变状态的 p的状态就会跟着改变
+
+
+
+// Promise.allSettled()  接收一组Promise 实例作为参数 包装成一个新的
+// Promise()实例 等这些参数都执行完毕 才会结束
+
+// const resolved = Promise.resolve(42);
+// const rejected = Promise.reject(-1);
+
+// const allSettledPromise = Promise.allSettled([resolved, rejected]);
+
+// allSettledPromise.then(function (results) {
+//   console.log(results);
+// })
+//成功不会返回resolve 而是fulfilled 因为传入的是对象 都执行完毕后也是返回一个数组
+
+
+//promise.resolve()
+// Promise.resolve('foo')
+//   .then(res => console.log(res))
+// // 等价于
+// new Promise(resolve => resolve('foo'))
+
+// promise.resolve()
+// const thenable = {
+//   then(resolve, reject) {
+//     reject('出错了');
+//   }
+// };
+
+// Promise.reject(thenable)
+// .catch(e => {
+//   console.log(e === thenable)
+// })
+
+
+
+
+//async 传参
+// const fn1 = time => {
+//   return new Promise((resolve, reject) => {
+//       setTimeout(() => {
+//           resolve('小花')
+//       }, time )
+//   })
+// }
+// async function fn (value) {
+//   await fn1(value)
+//   return fn1()
+// }   
+// fn(1000)
+//   .then(res => console.log(res))
 
 
 
