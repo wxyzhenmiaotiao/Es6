@@ -303,34 +303,186 @@ ReactDOM.render(<App />, document.getElementById('root'));
 
 
 //小程序
-  //子传父 
-  //子
-  //<button bind:tap="onTap">点我</button> 添加一个时间
-  //子 js 要写在methods里面
-  // methods: {
-  //   onTap(evt) {
-  //     console.log(evt,1111)
-  //     this.triggerEvent('onClick',{
-  //       name: '笑话',
-  //       age: 25
-  //     })
-  //   },
-  // }
+//子传父 
+//子
+//<button bind:tap="onTap">点我</button> 添加一个时间
+//子 js 要写在methods里面
+// methods: {
+//   onTap(evt) {
+//     console.log(evt,1111)
+//     this.triggerEvent('onClick',{
+//       name: '笑话',
+//       age: 25
+//     })
+//   },
+// }
 
-  //父 
-  //<images data="{{result}}" bind:onClick="onClick" /> 调用它添加事件
-      //父 js
-      // onClick(options) {
-      //   console.log(Object.prototype.toString.call(this.data.result));
-      //   console.log(this.data.result)
-      //   console.log(options.detail)
-      //   const { result } = this.data
-      //   this.setData({
-      //     result : {
-      //       imageUrl: result.imageUrl,
-      //       name: '小花'
-      //     }
-      //   })
-      // },
+//父 
+//<images data="{{result}}" bind:onClick="onClick" /> 调用它添加事件
+//父 js
+// onClick(options) {
+//   console.log(Object.prototype.toString.call(this.data.result));
+//   console.log(this.data.result)
+//   console.log(options.detail)
+//   const { result } = this.data
+//   this.setData({
+//     result : {
+//       imageUrl: result.imageUrl,
+//       name: '小花'
+//     }
+//   })
+// },
 
 
+
+
+//第三天
+//async
+//必须要return
+// const fn1 = time => {
+//     return new Promise((resolve, reject) => {
+//         setTimeout(() => {
+//             resolve('小花')
+//         }, time )
+//     })
+// }
+// async function fn (value) {
+//     const p1 =  await fn1(value)
+//     return p1
+// }   
+// fn(1000)
+//     .then(res => console.log(res))
+
+//
+// function timeout(ms) {
+//     return new Promise((resolve) => {
+//         setTimeout(resolve, ms);
+//     });
+// }
+
+// async function asyncPrint(value, ms) {
+//     await timeout(ms);
+//     console.log(value)
+// }
+
+// asyncPrint('hello world', 50)
+
+
+//async 函数有多种使用形式。
+
+// 函数声明
+// async function foo() { }
+
+// // 函数表达式
+// const foo = async function () { };
+
+// // 对象的方法
+// let obj = { async foo() { } };
+// obj.foo().then(...)
+
+// // Class 的方法
+// class Storage {
+//     constructor() {
+//         this.cachePromise = caches.open('avatars');
+//     }
+
+//     async getAvatar(name) {
+//         const cache = await this.cachePromise;
+//         return cache.match(`/avatars/${name}.jpg`);
+//     }
+// }
+
+// const storage = new Storage();
+// storage.getAvatar('jake').then(…);
+
+// // 箭头函数
+// const foo = async () => { };
+
+//返回Promise 对象 async函数内部return语句返回的值，会成为then方法回调函数的参数
+// async function f() {
+//     return 'hello world';
+// }
+
+// f()
+//     .then(v => console.log(v))
+
+//async函数内部抛出错误，会导致返回的 Promise 对象变为reject状态
+// async function f() {
+//     throw new Error('出错了');
+// }
+
+// f().then(
+//     v => console.log(v),
+//     e => console.log(e)
+// )
+
+
+//只有async函数内部的异步操作执行完，才会执行then方法指定的回调函数
+
+
+// await 命令
+//await命令后面是一个 Promise 对象，
+//返回该对象的结果。如果不是 Promise 对象，就直接返回对应的值。
+// async function f() {
+//     // 等同于
+//     // return 123;
+//     return await 123;
+// }
+// f().then(v => console.log(v))
+
+
+// class Sleep {
+//     constructor(timeout) {
+//         this.timeout = timeout;
+//     }
+//     then(resolve, reject) {
+//         const startTime = Date.now();
+//         setTimeout(
+//             () => resolve(Date.now() - startTime),
+//             this.timeout
+//         );
+//     }
+// }
+// (async () => {
+//     const sleepTime = await new Sleep(1000);
+//     console.log(sleepTime);
+// })();
+// await命令后面是一个Sleep对象的实例。
+// 这个实例不是 Promise 对象，
+// 但是因为定义了then方法，await会将其视为Promise处理
+
+
+// 上面代码中，await语句前面没有return，
+// 但是reject方法的参数依然传入了catch方法的回调函数。
+// 这里如果在await前面加上return，效果是一样的
+// async function f() {
+//     await Promise.reject('出错了');
+// }
+
+// f()
+//     .then(v => console.log(v))
+//     .catch(e => console.log(e))
+
+//即使前一个异步操作失败，也不要中断后面的异步操作
+// async function f() {
+//     await Promise.reject('出错了')
+//         .catch(e => console.log(e))
+//     return await Promise.resolve('hello world')
+// }
+
+// f()
+//     .then(v => console.log(v))
+
+
+// async 错误操作
+//如果await后面的异步操作出错，
+//那么等同于async函数返回的 Promise 对象被reject
+async function f() {
+    await new Promise(function (resolve, reject) {
+        throw new Error('出错了');
+    });
+}
+
+f()
+    .then(v => console.log(v))
+    .catch(e => console.log(e))
