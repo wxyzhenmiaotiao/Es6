@@ -477,12 +477,20 @@ ReactDOM.render(<App />, document.getElementById('root'));
 // async 错误操作
 //如果await后面的异步操作出错，
 //那么等同于async函数返回的 Promise 对象被reject
-async function f() {
-    await new Promise(function (resolve, reject) {
-        throw new Error('出错了');
-    });
-}
+// async function f() {
+//     await new Promise(function (resolve, reject) {
+//         throw new Error('出错了');
+//     });
+// }
 
-f()
-    .then(v => console.log(v))
-    .catch(e => console.log(e))
+// f()
+//     .then(v => console.log(v))
+//     .catch(e => console.log(e))
+
+
+//顶层 await 
+    //根据语法规格，await命令只能出现在 async 函数内部，否则都会报错
+    // const data = await fetch('https://api.example.com');
+    //上面的代码就是报错的
+    
+
