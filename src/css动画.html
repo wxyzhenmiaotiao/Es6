@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .transfrom {
+      width: 100px;
+      height: 100px;
+      background: red;
+      border-radius: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transform: translate3d(0) rotate(0);
+      top: 150px;
+      position: absolute;
+      transition: all 5s ease, transform 5s ease;
+      /* 可以设置多个属性 直接,后面写就行 */
+    }
+    .transfrom:active {
+      width: 200px;
+      top: 500px;
+      transform: translate(100px, 0, 0) rotate(1080deg);
+    }
+    .animation {
+      width: 100px;
+      height: 100px;
+      background: yellow;
+      border-radius: 100px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transform: translate(400px, 0);
+      animation: asd 5s ease-in-out;
+    }
+    @keyframes asd {
+      0% {
+        transform: translate(0);
+      }
+      100% {
+        transform: translate(400px, 0);
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 
+    a标签的4中状态及设置CSS 
+    a:link 超链接的默认样式
+    a:visited 访问过的(已经看过的)连接样式
+    a:hover 鼠标处于鼠标悬停状态的链接样式
+    a:active 当鼠标左键按下时,被激活(就是鼠标点击的时候)链接样式
+   -->
+  <div class="transfrom">
+    transeform
+  </div>
+  <div class="animation">animation</div>
+</body>
+
+</html>
+<script>
+
+</script>

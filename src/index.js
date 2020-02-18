@@ -489,8 +489,86 @@ ReactDOM.render(<App />, document.getElementById('root'));
 
 
 //顶层 await 
-    //根据语法规格，await命令只能出现在 async 函数内部，否则都会报错
-    // const data = await fetch('https://api.example.com');
-    //上面的代码就是报错的
-    
+//根据语法规格，await命令只能出现在 async 函数内部，否则都会报错
+// const data = await fetch('https://api.example.com');
 
+
+
+
+
+
+
+
+
+// 2月18号  
+
+//3秒后输出1，再过3秒输出2，
+    //要求使用 Promise 实现效果，输出的1，2必须在promise的then中输出
+// new Promise(function (resolve, reject) {
+//     setTimeout(function () {
+//         resolve(1)
+//     }, 3000)
+// })
+//     .then(res => {
+//         console.log(res)
+//         return new Promise(function (resolve, reject) {
+//             setTimeout(function () {
+//                 console.log(2)
+//             }, 3000)
+//         })
+//     })
+
+
+//接口：https://blogs.zdldove.top/Home/Apis/listWithPage。
+//按顺序调用2次该接口，第一次调用完有以后，再调用第二次，要求使用async实现。
+// const ajax = () => {
+//     return axios.post('https://blogs.zdldove.top/Home/Apis/listWithPage')
+// }
+// const fn = async function () {
+//     const p1 = await ajax()
+//     const p2 = await ajax()
+//     return [p1,p2]
+// }
+// fn() 
+//     .then(res => console.log(res))
+
+//接口: https://blogs.zdldove.top/Home/Apis/listWithPage. 
+//调用2次该接口，要求2次接口全部请求成功后。输出2次接口返回的内容
+// const ajax = () => {
+//     return axios.post('https://blogs.zdldove.top/Home/Apis/listWithPage')
+// }
+// const p1 = Promise.all([ajax(), ajax()])
+// p1
+//     .then(res => console.log(res))
+//     .catch(err => console.log(err))
+
+
+//实现一个类，包含name, age 2个属性，一个method方法，
+//实例化时传入name,age参数，调用实例的method方法输出该实例的name和 age值. 使用class实现
+// class P1 {
+//     constructor(a, b){
+//         this.name = a
+//         this.age = b
+//     }
+//     method() {
+//         console.log(this.name, this.age)
+//     }
+// }
+// const p1 = new P1('小红',11)
+// p1.method()
+
+//有一个对象，内容如下，该对象内容数量不定，要求封装一个方法，
+//传入参数如果是h1,输出这个对象key为h1的值，传入参数是h2输出这个对象为h2的值，
+//传入参数为 h9, 输出obj对象key为h9的值。
+// const obj = {
+//     h1: '我是H1',
+//     h2: '我是H2',
+//     h3: '我是H3',
+// }
+// function pri (opt) {
+//     console.log(obj[opt])
+// }
+// pri('h2')
+
+
+//判断是不是对象 Object.prototype.toString.call(obj)
