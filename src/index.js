@@ -503,7 +503,7 @@ ReactDOM.render(<App />, document.getElementById('root'));
 // 2月18号  
 
 //3秒后输出1，再过3秒输出2，
-    //要求使用 Promise 实现效果，输出的1，2必须在promise的then中输出
+//要求使用 Promise 实现效果，输出的1，2必须在promise的then中输出
 // new Promise(function (resolve, reject) {
 //     setTimeout(function () {
 //         resolve(1)
@@ -572,3 +572,302 @@ ReactDOM.render(<App />, document.getElementById('root'));
 
 
 //判断是不是对象 Object.prototype.toString.call(obj)
+
+
+
+
+//2.19
+
+///////         对象的拓展
+//属性的简洁表达式
+//1.
+//能在对象里面直接写变量和函数 
+//总的来说 就是简写对象 
+// const foo = 'bar';
+// const baz = { foo };
+// const baz = { foo: foo };
+
+// function f(x, y) {
+//     return { x, y };
+// }
+// console.log(f(1,2)) 
+// 打印结果 {x: 1, y: 2}
+
+// const o = {
+//     method() {
+//         return "Hello!";
+//     }
+// };
+//等同于
+// const o = {
+//     method: function () {
+//         return "Hello!";
+//     }
+// };
+
+// let birth = '2000/01/01';
+
+// const Person = {
+//     name: '张三',
+//     //等同于birth: birth
+//     birth, 
+//     // 等同于hello: function ()...
+//     hello() { 
+//         // console.log('我的出生日期', this.birth); 
+//         console.log('我的名字是', this.name); 
+//     }
+// }
+// Person.hello()
+
+// function getPoint() {
+//     const x = 1;
+//     const y = 10;
+//     return { x, y };
+// }
+// console.log(getPoint())
+//{x: 1, y: 10}
+
+// let ms = {};
+// function getItem(key) {
+//     return key in ms ? ms[key] : null;
+// }
+// function setItem(key, value) {
+//     ms[key] = value;
+// }
+// function clear() {
+//     ms = {};
+// }
+//上面的不是重点
+// module.exports = { getItem, setItem, clear };
+// 等同于
+// module.exports = {
+//     getItem: getItem,
+//     setItem: setItem,
+//     clear: clear
+// };
+
+// const cart = {
+//     _wheels: 3,
+//     get wheels() {
+//         return 1;
+//     },
+//     set wheels(value) {
+//         if (value < this._wheels) {
+//             throw new Error('数值太小了！');
+//         }
+//         this._wheels = value;
+//     }
+// }
+// console.log(cart.wheels)
+
+// let user = {
+//     name: 'test'
+// };
+// let foo = {
+//     bar: 'baz'
+// };
+// console.log(user, foo)
+// {name: "test"} {bar: "baz"}
+// console.log({ user, foo })
+// {user: {name: "test"}, foo: {bar: "baz"}}
+//每组键值对前面会打印对象名，这样就比较清晰了
+
+
+//2.属性名表达式
+
+// const obj = {
+//     name: '王潇瑜',
+//     age: 20
+// }
+// obj.foo = true;
+// 方法二
+// obj['a' + 'ge'] = 22;
+// console.log(obj.age)
+//上面代码的方法一是直接用标识符作为属性名，
+//方法二是用表达式作为属性名，这时要将表达式放在方括号之内
+// let NAME = "name"
+// let AGE = "age"
+// const obj = {
+//     [NAME]: '王潇瑜',
+//     [AGE]: 20
+// }
+// console.log(obj[NAME])
+// console.log(obj.age)
+
+// let lastWord = 'last word';
+
+// const a = {
+//     'first word': 'hello',
+//     [lastWord]: 'world'
+// };
+// console.log(a[lastWord]) //world
+// console.log(a['first word']) // hello
+// console.log(a['last word']) //world
+
+// const HELLO = 'asd'
+// let obj = {
+//     [HELLO]() {
+//         return 'hi';
+//     }
+// };
+// console.log(obj.asd())
+// 表达式还可以用于定义方法名
+
+//注意，属性名表达式与简洁表示法，不能同时使用，会报错
+// const foo = 'bar';
+// const bar = 'abc';
+// const baz = { [foo] }; 
+//报错 ↑
+// const foo = 'bar';
+// const baz = { [foo]: 'abc' };
+// 正确 ↑
+
+// const keyA = { a: 1 };
+// const keyB = { b: 2 };
+// const myObject = {
+//     [keyA]: 'valueA',
+//     [keyB]: 'valueB'
+// };
+// console.log(myObject) //Object {[object Object]: "valueB"}
+//上面代码中，[keyA]和[keyB]得到的都是[object Object]，
+//所以[keyB]会把[keyA]覆盖掉，
+//而myObject最后只有一个[object Object]属性
+
+
+//方法的name属性
+// const person = {
+//     sayName() {
+//         console.log('hello!');
+//     },
+// };
+// console.log(person.sayName.name)
+
+//如果使用了getter 或者 setter 取值函数 和 存值函数 
+//就不能直接取函数的name 要写成下面函数那样子
+// const obj = {
+//     get foo() { },
+//     set foo(x) { }
+// };
+//console.log(obj.foo.name) // 错误
+// const descriptor = Object.getOwnPropertyDescriptor(obj, 'foo');
+// console.log(descriptor.get.name)
+// console.log(descriptor.set.name)
+
+//有两种特殊情况：bind方法创造的函数，
+//name属性返回bound加上原函数的名字；Function构造函数创造的函数，
+//name属性返回anonymous
+// (new Function()).name // "anonymous"
+
+// var doSomething = function() {
+//   // ...
+// };
+// doSomething.bind().name // "bound doSomething"
+
+//如果对象的方法是一个 Symbol 值，那么name属性返回的是这个 Symbol 值的描述
+// const key1 = Symbol('description');
+// const key2 = Symbol();
+// let obj = {
+//   [key1]() {},
+//   [key2]() {},
+// };
+// obj[key1].name // "[description]"
+// obj[key2].name // ""
+
+
+
+
+
+// 对象的拓展运算符
+//结构赋值
+// let { x, y, ...z } = { x: 1, y: 2, a: 3, b: 4 };
+// x // 1
+// y // 2
+// z // { a: 3, b: 4 }
+
+//由于解构赋值要求等号右边是一个对象，
+//所以如果等号右边是undefined或null，
+//就会报错，因为它们无法转为对象
+// let { ...z } = null; // 运行时错误
+// let { ...z } = undefined; // 运行时错误
+// 解构赋值必须是最后一个参数，否则会报错。
+// let { ...x, y, z } = someObject; // 句法错误
+// let { x, ...y, ...z } = someObject; // 句法错误
+
+// let obj = { a: { b: 1 } };
+// let { ...x } = obj;
+// obj.a.b = 2;
+// x.a.b // 2
+//上面代码中 进行的就是一个 浅拷贝的作用
+
+// let o1 = { a: 1 };
+// let o2 = { b: 2 };
+// o2.__proto__ = o1;
+// let { ...o3 } = o2;
+// o3 // { b: 2 }
+// o3.a // undefined
+//另外，扩展运算符的解构赋值，不能复制继承自原型对象的属性
+//03复制了02 只是复制了02的自身的属性 没有复制他的01的原型对象的属性
+
+// const o = Object.create({ x: 1, y: 2 });
+// console.log(o)
+// o.z = 3;
+
+// let { x, ...newObj } = o;
+// let { y, z } = newObj;
+// x // 1
+// y // undefined
+// z // 3
+//x 结构出来就能获取到  然后y,z都是结构出来的对象 z可以赋值成功是因为z是o对象本身的属性
+//y不是本身的属性 所以没有赋值出来。
+
+//拓展运算符
+// let z = { a: 3, b: 4 };
+// let n = { ...z };
+// console.log(n)
+//{a: 3, b: 4}
+
+
+//由于数组是特殊的对象，所以对象的扩展运算符也可以用于数组。
+// let foo = { ...['a', 'b', 'c'] };
+// console.log(foo)
+
+//如果扩展运算符后面是一个空对象，则没有任何效果。
+// {...{}, a: 1}
+// { a: 1 }
+
+//如果扩展运算符后面不是对象，则会自动将其转为对象
+// const a = {...1}
+// console.log(a)
+//上面代码中，扩展运算符后面是整数1，会自动转为数值的包装对象Number{1}。
+//由于该对象没有自身属性，所以返回一个空对象
+
+//对象的扩展运算符等同于使用Object.assign()方法
+// let aClone = { ...a };
+// // 等同于
+// let aClone = Object.assign({}, a);
+
+// const a= {
+//     name: 'giao',
+//     x: '老外'
+// }
+// const b= {
+//     name: '老八'
+// }
+// let ab = { ...a, ...b };
+// console.log(ab) //{ name: '老八' }
+//如果用户自定义的属性，
+//放在扩展运算符后面，
+//则扩展运算符内部的同名属性会被覆盖掉
+
+// let aWithDefaults = { x: 1, y: 2, ...a };
+// console.log(aWithDefaults)
+//如果把自定义属性放在扩展运算符前面，就变成了设置新对象的默认属性值
+
+// const x = 0
+// const obj = {
+//     ...(x > 1 ? { a: 1 } : {}),
+//     b: 2,
+// };
+// console.log(obj)
+//与数组的扩展运算符一样，对象的扩展运算符后面可以跟表达式。
+
