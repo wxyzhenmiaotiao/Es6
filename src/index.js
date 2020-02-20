@@ -2,9 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
+import App1 from './pages/220arr';
 import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<App1 />, document.getElementById('root'));
 
 
 
@@ -871,3 +872,20 @@ ReactDOM.render(<App />, document.getElementById('root'));
 // console.log(obj)
 //与数组的扩展运算符一样，对象的扩展运算符后面可以跟表达式。
 
+// const obj = {
+//   name: '小花',
+
+//   age: {
+//     xxx: 1
+//   },
+
+//   abc: undefined,
+// }
+// const newobj = JSON.parse(JSON.stringify(obj))
+//这种方法undefined没有输出出来
+// const newobj = { ...obj }
+// newobj.abc = 123
+//这个方法是前拷贝
+// console.log(newobj.abc)
+// const arr = [1,[2,3,[5]]]
+// console.log(arr.flat(Infinity))
