@@ -64,3 +64,55 @@
 // 深拷贝   lodash（ _.cloneDeep() ）    JSON.parse(JSON.stringify())   递归
 
 
+// redux触发流程
+// view -> action -> reduce
+// 用户在视图中引发action在action里面触发reduce进行state操作，修改完成state在重新渲染到页面上去
+// redux创建store (createStore.js)
+// reducer    applyMiddleware
+// 1.单一数据源 一个项目只有一个store
+// 2.state 在页面里面是只读的 需要触发action来修改state
+// 3. state是只读的 纯函数 只能用reducer修改
+
+//深拷贝
+// lodash 递归 
+//Object.assign() 合并对象使用
+
+//es6新特性:
+// 块级作用域 let const
+// 新增基本数据类型symbol
+// 结构赋值
+// 箭头函数 还可以给函数中的形参默认值
+// String的include方法 includes("元素") 用于判断字符串中是否包含某个字符
+// isArray() 判断是否是数组的方法
+// 新增模块化（import/export）
+// import是引入
+// export导出变量，模块，函数等
+// set get
+// set包含的方法 add()、has()、delete()、clear()
+// get(key)根据key值取得value
+// for...of for...in
+
+// CSS盒模型
+// 就是CSS的一种模块,它定义了一种长方形的盒子,包括他们各自的内边距,
+// 和外边距,并根据视觉格式化来生成元素对其进行布局,编译
+
+// 当两个请求都完成时 在进行返回
+// promise。all([a1,a2])
+	//.then(res => {console.log(res)})
+
+// const a1 = () => {
+//   return new Promise(resolve => {
+//     post()
+//       .then(res => resolve(res))
+//   })
+// }
+// const a2 = () => {
+//   return new Promise(resolve => {
+//     post()
+//       .then(res => resolve(res))
+//   })
+// }
+// async function A () {
+//   const d = Promise.all([a1, a2])
+//   return d
+// }
