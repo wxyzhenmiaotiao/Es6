@@ -116,3 +116,6 @@
 //   const d = Promise.all([a1, a2])
 //   return d
 // }
+
+
+console.log(1)
