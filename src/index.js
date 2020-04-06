@@ -6,6 +6,7 @@ import App1 from './pages/225';
 ReactDOM.render(<App1 />, document.getElementById('root'));
 
 console.log(1)
+console.log(2)
 
 //promise 有两个参数
 // const promise = new Promise(function (resolve, reject) {
