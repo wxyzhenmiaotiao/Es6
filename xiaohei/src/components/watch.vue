@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h1>watch和computed</h1>
     <el-input v-model="input" placeholder="请输入"></el-input><el-button @click="add">添加</el-button>
     <h1>几只:{{total}}</h1>
   </div>
