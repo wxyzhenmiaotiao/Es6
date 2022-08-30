@@ -1,85 +1,7 @@
 <template>
-  <div class="hello">
-    <h1>{{ msg }}</h1>
-    <h2>Essential Links</h2>
-    <ul>
-      <li>
-        <a
-          href="https://vuejs.org"
-          target="_blank"
-        >
-          Core Docs
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://forum.vuejs.org"
-          target="_blank"
-        >
-          Forum
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://chat.vuejs.org"
-          target="_blank"
-        >
-          Community Chat
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://twitter.com/vuejs"
-          target="_blank"
-        >
-          Twitter
-        </a>
-      </li>
-      <br>
-      <li>
-        <a
-          href="http://vuejs-templates.github.io/webpack/"
-          target="_blank"
-        >
-          Docs for This Template
-        </a>
-      </li>
-    </ul>
-    <h2>Ecosystem</h2>
-    <ul>
-      <li>
-        <a
-          href="http://router.vuejs.org/"
-          target="_blank"
-        >
-          vue-router
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vuex.vuejs.org/"
-          target="_blank"
-        >
-          vuex
-        </a>
-      </li>
-      <li>
-        <a
-          href="http://vue-loader.vuejs.org/"
-          target="_blank"
-        >
-          vue-loader
-        </a>
-      </li>
-      <li>
-        <a
-          href="https://github.com/vuejs/awesome-vue"
-          target="_blank"
-        >
-          awesome-vue
-        </a>
-      </li>
-    </ul>
+  <div>
+    <el-input v-model="input" placeholder="请输入"></el-input><el-button @click="add">添加</el-button>
+    <h1>几只:{{total}}</h1>
   </div>
 </template>
 
@@ -88,26 +10,41 @@ export default {
   name: 'HelloWorld',
   data () {
     return {
-      msg: 'Welcome to Your Vue.js App'
+      input: '',
+      data: [],
+      total: 0
     }
+  },
+  methods: {
+    add() {
+      this.data.push('')
+      // this.data = {
+      //   name: 'zhangsan'
+      // }
+    }
+  },
+  // computed: { // 计算属性  // 计算属性有缓存，如果值没有发生变化，页面就不会重新渲染。
+  //   total() {
+  //     return this.data.length
+  //   }
+  // },
+  
+  watch: { // 监听器 // 默认情况下watch不执行 需要加immediate: true  当你所使用的数据复杂时 就需要使用deep这个属性
+    data: {
+      handler: function(newValue,oldValue) {
+        // console.log(newValue,oldValue)
+        this.total = this.data.length + '只'
+      },
+      immediate: true,
+      deep: true,
+    },
   }
 }
 </script>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->
+ <!-- 总结：在项目中如果可以使用computed实现想要的结果就使用computed，因为他写法简洁还具有缓存性可以优化项目性能，
+  watch需要申明变量，还得需要添加代码才可以初始化加载。
+  当面试的时候可以这样回答，如果一个值发生了变化后需要做很多事情的话，就用watch。
+  如果一个值是其他值计算得来的，其他值变了这个值也需要变的话，就用computed。 -->
 <style scoped>
-h1, h2 {
-  font-weight: normal;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+
 </style>
