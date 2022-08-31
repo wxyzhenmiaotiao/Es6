@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Router from 'vue-router'
 import Watch from '@/components/watch'
 import Life from '@/components/life'
+import VueComponents from '@/components/vueComponents'
 
 Vue.use(Router)
 
@@ -18,6 +19,12 @@ export default new Router({
       path: '/life',
       name: 'life',
       component: Life
+    },
+    // vue组件化的理解
+    {
+      path: '/vueComponents',
+      name: 'vueComponents',
+      component: VueComponents
     }
   ]
 })
